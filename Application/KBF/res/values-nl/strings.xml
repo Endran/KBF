@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kerst Bier Festival 2013</string>
+    <string name="activationCode">kbf2013win</string>
+    <string name="placeHolder"></string>
+    <string name="errorWhileRetrievingResults">Er is een probleem opgetreden tijdens het ophalen van resultaten</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="action_about">About</string>
+    <string name="action_account">Account</string>
+    <string name="festivalFragmentName">Festival</string>
+    <string name="allSummariesFragmentName">Bieren</string>
+    <string name="allBrewersFragmentName">Brouwers</string>
+    <string name="allFavoriteSummariesFragmentName">Favorieten</string>
+    <string name="allWishListSummariesFragmentName">Wensen list</string>
+    <string name="first_boot_loading">Bezig met downloaden en verwerken van de data, de eerste keer kan dit even duren!</string>
+    <string name="no_favorites_yet">Je hebt geen bieren gemarkeerd als favoriet. Je kan bieren als favoriet markeren door op het \'hartje\' te klikken bij de details van een bier.</string>
+    <string name="no_whishlist_yet">Je hebt geen bieren gemarkeerd op je wensen lijst. Je kan bieren op je wensen lijst zetten door op het \'karretje\' te klikken bij de details van een bier.</string>
+
+    <string name="rate">Rate</string>
+    
+    <!-- About screen -->
+    <string name="product_name">Showcase</string>
+    <string name="about_versionCode">Versie 2.0.2 </string>
+    <string name="about_copyrights">\u00A9 David Hardy 2013</string>
+    <string name="about_contact">Contact</string>
+    <string name="about_contactAddress">EndranAppDevelopment@gmail.com</string>
+    <string name="about_text">Deze applicatie is bedoeld als een leuke toevoeging op dit bier festival, ik hoop dat u er plezierig en tevreden gebruikt van maakt. Hebt u tips, of suggesties voor verbeteringen? Stuur dan een mail naar bovenstaand email adres. \n\nOok interesse in een applicatie voor uw festival? Neem dan ook contact op via bovenstaand email adres. \n\nOntwikkeld door David Hardy in samenwerking met Taco Vader</string>
+
+    <!-- Complete Beer Details -->
+    <string name="number">Nummer</string>
+    <string name="tokens">Jetons</string>
+    <string name="method">Schenkwijze</string>
+    <string name="percentage">Percentage</string>
+    <string name="city">Stad</string>
+    <string name="color">Kleur</string>
+    <string name="login_request">Wil je inloggen?</string>
+    <string name="login">Inloggen</string>
+    <string name="successful_login">Succesvol ingelogged</string>
+    <string name="averageRating">Gemiddelde waardering in %1$d stemmen</string>
+    <string name="yourRating">Jouw rating</string>
+    <string name="award">Prijs</string>
+    <string name="lastBottle">Laatste fles</string>
+    <string name="soldOut">Uitverkocht</string>
+    <string name="rated">Gewaardeerd</string>
+    <string name="ratings">Waarderingen</string>
+    <string name="alreadyRated">Reeds gewaardeerd</string>
+    <string name="recommended">Aanbevolen</string>
+    <string name="festivalFirst">Nieuw op dit festival</string>
+    <string name="activate">Activeren</string>
+    <string name="userNotLoggedInMessage">Je bent niet ingelogged</string>
+    <string name="ok">OK</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="clear">Wis</string>
+    <string name="first_activate">Je moet eerst de app activeren voordat je alle beschrijvingen kan zien.</string>
+    <string name="login_title">Inloggen</string>
+    <string name="login_text">Door de activatie code in te voeren kan je alle bier beschrijvingen zien. Ook kan je waarderingen geven aan bieren en notities van andere gebruikers bekijken.</string>
+    <string name="login_activation">Activatie code</string>
+    <string name="login_username">Gebruikersnaam</string>
+    <string name="login_forgotPassword">Wachtwoord vergeten</string>
+    <string name="login_email">Email</string>
+    <string name="login_privacy">Je kan de activatie code vinden op pagina 5 van het festival boekje.\n\nJe email adres wordt enkel gebruikt om jou uniek te kunnen indentificeren. Het zal niet gedeeld worden met derden.</string>
+    <string name="login_toast_noUserName">Geen gebruikersnaam ingevult</string>
+    <string name="login_toast_toShortUserName">Je gebruikersnaam is te kort</string>
+    <string name="login_toast_noActivation">Je hebt geen activatiecode ingevult</string>
+    <string name="login_toast_activated">Succesvol geactiveerd</string>
+    <string name="login_toast_loggedin">Succesvol ingelogged</string>
+    <string name="login_toast_data_backupped">Offline data succesvol opgeslagen</string>
+    <string name="login_toast_invalidActivation">Verkeerde activatie code</string>
+    <string name="login_toast_login_error">Er is een probleem opgetreden tijdens het inloggen.</string>
+    <string name="login_toast_timeout">Kon de server niet bereiken. Zorg dat je een werkende internet verbinding hebt en probeer het later nog eens.</string>
+    <string name="login_toast_user_already_exists_or_invalid_password">De gebruikersnaam bestaat al, of het wachtwoord is incorrect</string>
+    <string name="login_noAccount_warning">Waarschuwing</string>
+    <string name="login_noAccount_text">Als je inlogged, dan kan je waarderingen geven, wil je inloggen?</string>
+    <string name="beerDetailNotes">Notitie</string>
+    <string name="beerDetailYourRating">Jouw waardering</string>
+    <string name="didNotCommentYet">Je hebt het bier nog geen waardering gegeven. Klik hier om een waardering te geven.</string>
+    <string name="ratingOfuser">Waardering van: %1$s</string>
+    <string name="menu_sendCheck">Admin available</string>
+    <string name="menu_sendWarn">Admin last</string>
+    <string name="menu_sendDeny">Admin sold out</string>
+    <string name="menu_favorite">Favoriet</string>
+    <string name="menu_cart">Wensen lijst</string>
+    <string name="menu_sort">Sorteer</string>
+    <string name="menu_filter">Filter</string>
+    <string name="menu_search">Zoek</string>
+    <string name="menu_share">Deel</string>
+    <string name="menu_info">About</string>
+    <string name="menu_refresh">Vernieuw</string>
+    <string name="anonymous">Anoniem</string>
+    <string name="logout">Logout</string>
+
+    <!-- Search -->
+    <string name="no_search_results">Jouw zoekopdracht heeft geen resultaten opgeleverd</string>
+    <string name="busy_searching">Bezig met zoeken</string>
+    <string name="alphabet">Alfabet</string>
+    <string name="average_rating">Gemiddelde waardering</string>
+    <string name="my_rating">Mijn waarderingen</string>
+    <string name="price">Prijs</string>
+    <string name="exclusive">Exclusief</string>
+    <string name="not_yet_rated">Nog niet gewaardeerd</string>
+    <string name="already_rated">Reeds gewaardeerd</string>
+    <string name="no_filter">Geen filter</string>
+    <string name="could_not_dowload_database">Kon geen data downloaden, zorg ervoor dat je een werkende internet verbinding hebt</string>
+
+</resources>

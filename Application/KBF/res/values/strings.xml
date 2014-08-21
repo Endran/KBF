@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Christmas Beer Festival 2013</string>
+    <string name="activationCode">kbf2013win</string>
+    <string name="placeHolder"></string>
+    <string name="errorWhileRetrievingResults">An error occurred while retrieving results</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="action_account">Account</string>
+    <string name="festivalFragmentName">Festival</string>
+    <string name="allSummariesFragmentName">Beers</string>
+    <string name="allBrewersFragmentName">Brewers</string>
+    <string name="allFavoriteSummariesFragmentName">Favorites</string>
+    <string name="allWishListSummariesFragmentName">Wish list</string>
+    <string name="first_boot_loading">Downloading and parsing data, the first time this may take a while!</string>
+    <string name="no_favorites_yet">You have no beers marked as favorite. Mark a beer as favorite by tapping on the \'heart\' icon when browsing through the details of a beer.</string>
+    <string name="no_whishlist_yet">You have no beers added to your wish list. Add a beer to your wish list by tapping on the \'cart\' icon when browsing through the details of a beer.</string>
+
+    <string name="rate">Rate</string>
+    
+    <!-- About screen -->
+    <string name="product_name">Showcase</string>
+    <string name="about_versionCode">Version 2.0.2 </string>
+    <string name="about_copyrights">\u00A9 David Hardy 2013</string>
+    <string name="about_contact">Contact</string>
+    <string name="about_contactAddress">EndranAppDevelopment@gmail.com</string>
+    <string name="about_text">This application is intended to be a fun addition to this festival, I hope you enjoy this application. Do you have any kind of feedback? Don\'t hesitate and send an email the the address above.\n\nIf you would like to have an app for your festival, please contact me via to the email address above.\n\nDeveloped by David Hardy in collaboration with Taco Vader.</string>
+
+    <!-- Complete Beer Details -->
+    <string name="number">Number</string>
+    <string name="tokens">Tokens</string>
+    <string name="method">Method</string>
+    <string name="percentage">Percentage</string>
+    <string name="city">City</string>
+    <string name="color">Color</string>
+    <string name="login_request">Do you want to login?</string>
+    <string name="login">Login</string>
+    <string name="successful_login">Login was successful</string>
+    <string name="averageRating">Average rating in %1$d votes</string>
+    <string name="yourRating">Your rating</string>
+    <string name="award">Award</string>
+    <string name="lastBottle">Last bottle</string>
+    <string name="soldOut">Sold out</string>
+    <string name="rated">Rated</string>
+    <string name="ratings">Ratings</string>
+    <string name="alreadyRated">Already rated</string>
+    <string name="recommended">Recommended</string>
+    <string name="festivalFirst">New at this festival</string>
+    <string name="activate">Activate</string>
+    <string name="userNotLoggedInMessage">You are not logged in</string>
+    <string name="ok">OK</string>
+    <string name="logout">Logout</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="clear">Clear</string>
+    <string name="first_activate">You need to enter the activation code before you can see all the descriptions.</string>
+    <string name="login_title">Login</string>
+    <string name="login_text">By entering the activation code, you can read the description or all beers. You can also rate beers and share comments with other guests.</string>
+    <string name="login_activation">Activation code</string>
+    <string name="login_username">Username</string>
+    <string name="login_forgotPassword">Forgot password</string>
+    <string name="login_email">Email</string>
+    <string name="login_privacy">You can find the activation code on page 5 of the festival booklet.\n\nYour email address is used to uniquely identify you. It will not be shared with third parties.</string>
+    <string name="login_toast_noUserName">No username entered</string>
+    <string name="login_toast_toShortUserName">Your username is too short</string>
+    <string name="login_toast_noActivation">No activation code entered</string>
+    <string name="login_toast_activated">Successfully activated</string>
+    <string name="login_toast_loggedin">Successfully logged in</string>
+    <string name="login_toast_data_backupped">Offline data successfully stored</string>
+    <string name="login_toast_invalidActivation">Invalid activation code</string>
+    <string name="login_toast_login_error">An error occurred during login</string>
+    <string name="login_toast_timeout">Could not reach the server. Make sure that you have a data connection or try again later</string>
+    <string name="login_toast_user_already_exists_or_invalid_password">The username already exists, or the password is incorrect</string>
+    <string name="login_noAccount_warning">Warning</string>
+    <string name="login_noAccount_text">If you would log in in and entering an email address you can save your data. Would you like to log in?</string>
+    <string name="beerDetailNotes">Note</string>
+    <string name="beerDetailYourRating">Your rating</string>
+    <string name="didNotCommentYet">You did not yet rated this beer. Click here to rate.</string>
+    <string name="ratingOfuser">Rating of: %1$s</string>
+    <string name="menu_sendCheck">Admin available</string>
+    <string name="menu_sendWarn">Admin last</string>
+    <string name="menu_sendDeny">Admin sold out</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_cart">Wish list</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_filter">Filter</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_info">About</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="anonymous">Anonymous</string>
+
+    <!-- Search -->
+    <string name="no_search_results">Your search did not find any results</string>
+    <string name="busy_searching">Performing search</string>
+    <string name="alphabet">Alphabet</string>
+    <string name="average_rating">Average rating</string>
+    <string name="my_rating">My rating</string>
+    <string name="price">Price</string>
+    <string name="exclusive">Exclusive</string>
+    <string name="not_yet_rated">Not yet rated</string>
+    <string name="already_rated">Already rated</string>
+    <string name="no_filter">No filter</string>
+    <string name="could_not_dowload_database">Could not download any data, make sure you have internet connectivity</string>
+
+</resources>

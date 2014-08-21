@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/conferenceitemmain"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#0000FFFF"
+    android:minHeight="60dp" >
+
+    <RelativeLayout
+        android:id="@+id/commentArea"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/px1layout"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#000000"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/beerNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/px1layout"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="4dp"
+            android:duplicateParentState="true"
+            android:text="@string/placeHolder"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/userNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/beerNameText"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="4dp"
+            android:duplicateParentState="true"
+            android:text="@string/placeHolder"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/beerRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userNameText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="24dp"
+            android:duplicateParentState="true"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.5" />
+        
+        <View
+            android:id="@+id/viewSpacer"
+            android:layout_width="0dp"
+            android:layout_below="@+id/userNameText"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"></View>
+
+        <TextView
+            android:id="@+id/commentText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/viewSpacer"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="24dp"
+            android:duplicateParentState="true"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="0.0"
+            android:shadowDy="0.0"
+            android:shadowRadius="2.0"
+            android:text="@string/placeHolder"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#101010" />
+
+        <TextView
+            android:id="@+id/commentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/commentText"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="24dp"
+            android:duplicateParentState="true"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="0.0"
+            android:shadowDy="0.0"
+            android:shadowRadius="2.0"
+            android:text="@string/placeHolder"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#101010" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/noCommentArea"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/commentArea"
+        android:layout_alignTop="@+id/commentArea"
+        android:visibility="invisible" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:duplicateParentState="true"
+            android:gravity="center"
+            android:text="@string/didNotCommentYet"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+</RelativeLayout>

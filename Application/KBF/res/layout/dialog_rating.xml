@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/buttonOk"
+        android:layout_alignTop="@+id/textViewYourRatingCount"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginTop="-11dp"
+        android:contentDescription="@string/beerDetailNotes"
+        android:scaleType="centerCrop"
+        android:src="@drawable/parchment" />
+
+    <TextView
+        android:id="@+id/textViewYourRatingCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/beerDetailYourRating"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FF000000" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewYourRatingCount"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/clear" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/beerRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewYourRatingCount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:numStars="5"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/textViewNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonClear"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/beerDetailNotes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FF000000" />
+
+    <EditText
+        android:id="@+id/editTextNote"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewNote"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:ems="1"
+        android:inputType="textMultiLine"
+        android:maxLines="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextNote"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:minHeight="48dp"
+        android:minWidth="96dp"
+        android:text="@string/ok" />
+
+</RelativeLayout>

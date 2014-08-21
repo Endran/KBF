@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPayment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Payment>
+    <Name>Euro</Name>
+    <Id>0</Id>
+  </Payment>
+  <Payment>
+    <Name>Bonnen</Name>
+    <Id>1</Id>
+  </Payment>
+  <Payment>
+    <Name>Free</Name>
+    <Id>2</Id>
+  </Payment>
+</ArrayOfPayment>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="server_url">http://beer.crisp-e.com</string>
+    <string name="server_festival_query">festival=2</string>
+    <string name="server_language_query">lang=en</string>
+
+    <string-array name="server_extensions">
+        <item>/beers.xml</item>
+        <item>/brewers.xml</item>
+        <item>/festivals.xml</item>
+        <item>/festivalbeers.xml</item>
+        <item>/userbeers.xml</item>
+    </string-array>
+    <string-array name="server_extensions_lite">
+        <item>/festivalbeers_lite.xml</item>
+        <item>/beers_lite.xml</item>
+        <item>/userbeers.xml</item>
+    </string-array>
+    
+    <!-- 
+        
+    -->
+
+    <string name="server_rate">/rate</string>
+    <string name="server_user">/user</string>
+    <string name="server_crashlog">/crash</string>
+    <string name="server_stock">/stock</string>
+    <string name="server_secret">rynTeZa1Nk1Dvqv3WTKxudF39yxB90Q5wzLDoYJCj3Tdqy0rtWNwLL12xNKx8CxjjKfDz7L7IbUdxYa0wnwE4F0g1kXMjj1JQ41P</string>
+
+</resources>
