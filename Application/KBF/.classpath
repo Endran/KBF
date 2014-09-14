@@ -4,7 +4,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/EndranUtils"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CrispeBackend"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SqlLiteDatabase"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/KBFService"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
