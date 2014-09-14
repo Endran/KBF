@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="nl.endran.showcaseui"
     android:versionCode="4"
-    android:versionName="2.0.2" xmlns:tools="http://schemas.android.com/tools">
+    android:versionName="2.0.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -27,7 +28,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name="nl.endran.showcase.application.kbfservice.ShowcaseServer" tools:ignore="MissingRegistered">
+        <service
+            android:name="nl.endran.showcase.application.kbfservice.ShowcaseServer"
+            tools:ignore="MissingRegistered" >
         </service>
 
         <activity android:name="nl.endran.showcase.application.kbf.BeerDetailActivity" >
