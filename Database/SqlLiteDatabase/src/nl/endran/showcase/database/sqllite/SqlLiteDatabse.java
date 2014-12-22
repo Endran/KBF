@@ -33,452 +33,453 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 
 public class SqlLiteDatabse implements ShowcaseDatabase {
-	ILogger log = LoggerFactory.GetLogger(this);
-
-	private final Context context;
-	private boolean initialized;
-
-	public SqlLiteDatabse(final Context context) {
-		this.context = context;
-	}
-
-	@Override
-	public String getLatestUpdateTimestamp() {
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		return sharedPreferences.getString("TIMESTAMP", "");
-	}
-
-	private void setLatestUpdateTimestamp(final String timestamp) {
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		sharedPreferences.edit().putString("TIMESTAMP", timestamp).commit();
-
-		log.debug("## " + "setLatestUpdateTimestamp " + timestamp);
-	}
-
-	private boolean isInitialized() {
-		if (!initialized) {
-			final String timestamp = getLatestUpdateTimestamp();
-			if (timestamp != null && timestamp.length() > 0) {
-				initialized = true;
-			}
-		}
-		return initialized;
-	}
-
-	@Override
-	public boolean storeShowcaseDataObjectListList(final List<ArrayList<ShowcaseDataObject>> showcaseDataObjectListList) {
-		boolean succes = true;
-
-		if (!isInitialized()) {
-			final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
-			for (final ArrayList<ShowcaseDataObject> showcaseDataObjectList : showcaseDataObjectListList) {
-				succes = dataBaseHandler.bulkInsert(showcaseDataObjectList);
-				checkForTimestamp(showcaseDataObjectList);
-			}
-		} else {
-			for (final ArrayList<ShowcaseDataObject> showcaseDataObjectList : showcaseDataObjectListList) {
-				succes &= storeShowcaseDataObjectList(showcaseDataObjectList);
-			}
-		}
-
-		log.verbose("storeShowcaseDataObjectListList succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
-		return succes;
-	}
-
-	@Override
-	public boolean storeShowcaseDataObjectList(final List<ShowcaseDataObject> showcaseDataObjectList) {
-		final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
-		final int insertdOrUpdatedItems = dataBaseHandler.insertOrUpdate(showcaseDataObjectList);
-		final boolean succes = insertdOrUpdatedItems > 0;
-
-		if (succes) {
-			checkForTimestamp(showcaseDataObjectList);
-		}
-
-		log.verbose("storeShowcaseDataObjectList succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
-		return succes;
-	}
-
-	@Override
-	public boolean storeShowcaseDataObject(final ShowcaseDataObject showcaseDataObject) {
-		final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
-		final boolean succes = dataBaseHandler.insertOrUpdate(showcaseDataObject) > 0;
-
-		if (succes) {
-			checkForTimestamp(showcaseDataObject);
-		}
-
-		log.verbose("storeShowcaseDataObject succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
-		return false;
-	}
-
-	private void checkForTimestamp(final List<ShowcaseDataObject> showcaseDataObjectList) {
-		for (final ShowcaseDataObject showcaseDataObject : showcaseDataObjectList) {
-			checkForTimestamp(showcaseDataObject);
-		}
-	}
-
-	private void checkForTimestamp(final ShowcaseDataObject showcaseDataObject) {
-		try {
-			final java.lang.reflect.Method getDateMethod = showcaseDataObject.getClass().getMethod("getDate", new Class<?>[0]);
-			final String timestamp = (String) getDateMethod.invoke(showcaseDataObject, new Object[0]);
-			if (timestamp == null || timestamp.length() != "2012-12-15 18:34:56".length()) {
-				return;
-			}
-
-			final String latestUpdateTimestamp = getLatestUpdateTimestamp();
-
-			log.debug("## " + latestUpdateTimestamp + ".compareTo(" + timestamp + ")=" + latestUpdateTimestamp.compareTo(timestamp));
-
-			if (!isInitialized() || latestUpdateTimestamp.compareTo(timestamp) < 0) {
-				setLatestUpdateTimestamp(timestamp);
-			}
-
-		} catch (final NoSuchMethodException e) {
-			// Expected
-		} catch (final IllegalArgumentException e) {
-			log.error("IllegalArgumentException", e);
-		} catch (final IllegalAccessException e) {
-			log.error("IllegalAccessException", e);
-		} catch (final InvocationTargetException e) {
-			log.error("InvocationTargetException", e);
-		}
-	}
+    ILogger log = LoggerFactory.GetLogger(this);
+
+    private final Context context;
+    private boolean initialized;
+
+    public SqlLiteDatabse(final Context context) {
+        this.context = context;
+        new DataBaseHandler(context);
+    }
+
+    @Override
+    public String getLatestUpdateTimestamp() {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        return sharedPreferences.getString("TIMESTAMP", "");
+    }
+
+    private void setLatestUpdateTimestamp(final String timestamp) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        sharedPreferences.edit().putString("TIMESTAMP", timestamp).commit();
+
+        log.debug("## " + "setLatestUpdateTimestamp " + timestamp);
+    }
+
+    private boolean isInitialized() {
+        if (!initialized) {
+            final String timestamp = getLatestUpdateTimestamp();
+            if (timestamp != null && timestamp.length() > 0) {
+                initialized = true;
+            }
+        }
+        return initialized;
+    }
+
+    @Override
+    public boolean storeShowcaseDataObjectListList(final List<ArrayList<ShowcaseDataObject>> showcaseDataObjectListList) {
+        boolean succes = true;
+
+        if (!isInitialized()) {
+            final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
+            for (final ArrayList<ShowcaseDataObject> showcaseDataObjectList : showcaseDataObjectListList) {
+                succes = dataBaseHandler.bulkInsert(showcaseDataObjectList);
+                checkForTimestamp(showcaseDataObjectList);
+            }
+        } else {
+            for (final ArrayList<ShowcaseDataObject> showcaseDataObjectList : showcaseDataObjectListList) {
+                succes &= storeShowcaseDataObjectList(showcaseDataObjectList);
+            }
+        }
+
+        log.verbose("storeShowcaseDataObjectListList succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
+        return succes;
+    }
+
+    @Override
+    public boolean storeShowcaseDataObjectList(final List<ShowcaseDataObject> showcaseDataObjectList) {
+        final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
+        final int insertdOrUpdatedItems = dataBaseHandler.insertOrUpdate(showcaseDataObjectList);
+        final boolean succes = insertdOrUpdatedItems > 0;
+
+        if (succes) {
+            checkForTimestamp(showcaseDataObjectList);
+        }
+
+        log.verbose("storeShowcaseDataObjectList succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
+        return succes;
+    }
+
+    @Override
+    public boolean storeShowcaseDataObject(final ShowcaseDataObject showcaseDataObject) {
+        final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
+        final boolean succes = dataBaseHandler.insertOrUpdate(showcaseDataObject) > 0;
+
+        if (succes) {
+            checkForTimestamp(showcaseDataObject);
+        }
+
+        log.verbose("storeShowcaseDataObject succeeded, latestUpdateTimestamp = " + getLatestUpdateTimestamp());
+        return false;
+    }
+
+    private void checkForTimestamp(final List<ShowcaseDataObject> showcaseDataObjectList) {
+        for (final ShowcaseDataObject showcaseDataObject : showcaseDataObjectList) {
+            checkForTimestamp(showcaseDataObject);
+        }
+    }
+
+    private void checkForTimestamp(final ShowcaseDataObject showcaseDataObject) {
+        try {
+            final java.lang.reflect.Method getDateMethod = showcaseDataObject.getClass().getMethod("getDate", new Class<?>[0]);
+            final String timestamp = (String) getDateMethod.invoke(showcaseDataObject, new Object[0]);
+            if (timestamp == null || timestamp.length() != "2012-12-15 18:34:56".length()) {
+                return;
+            }
+
+            final String latestUpdateTimestamp = getLatestUpdateTimestamp();
+
+            log.debug("## " + latestUpdateTimestamp + ".compareTo(" + timestamp + ")=" + latestUpdateTimestamp.compareTo(timestamp));
+
+            if (!isInitialized() || latestUpdateTimestamp.compareTo(timestamp) < 0) {
+                setLatestUpdateTimestamp(timestamp);
+            }
 
-	@Override
-	public List<Summary> getAllSummaries() {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesQuery());
+        } catch (final NoSuchMethodException e) {
+            // Expected
+        } catch (final IllegalArgumentException e) {
+            log.error("IllegalArgumentException", e);
+        } catch (final IllegalAccessException e) {
+            log.error("IllegalAccessException", e);
+        } catch (final InvocationTargetException e) {
+            log.error("InvocationTargetException", e);
+        }
+    }
 
-		final List<Summary> summaries = new ArrayList<Summary>();
+    @Override
+    public List<Summary> getAllSummaries() {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesQuery());
 
-		resultCursor.moveToFirst();
+        final List<Summary> summaries = new ArrayList<Summary>();
 
-		while (!resultCursor.isAfterLast()) {
-			final Summary summary = CursorConverter.toSummary(resultCursor);
-			summaries.add(summary);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return summaries;
-	}
+        while (!resultCursor.isAfterLast()) {
+            final Summary summary = CursorConverter.toSummary(resultCursor);
+            summaries.add(summary);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-	@Override
-	public Summary getSummary(final int festivalBeerId) {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesQuery(festivalBeerId));
+        return summaries;
+    }
 
-		Summary summary = null;
+    @Override
+    public Summary getSummary(final int festivalBeerId) {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesQuery(festivalBeerId));
 
-		resultCursor.moveToFirst();
+        Summary summary = null;
 
-		if (!resultCursor.isAfterLast()) {
-			summary = CursorConverter.toSummary(resultCursor);
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return summary;
-	}
+        if (!resultCursor.isAfterLast()) {
+            summary = CursorConverter.toSummary(resultCursor);
+        }
+        resultCursor.close();
 
-	@Override
-	public List<Beer> getAllBeers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        return summary;
+    }
 
-	@Override
-	public Beer getBeer(final int beerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Beer> getAllBeers() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public List<Brewer> getAllBrewers() {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetBrewerQuery());
+    @Override
+    public Beer getBeer(final int beerId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-		final List<Brewer> brewers = new ArrayList<Brewer>();
+    @Override
+    public List<Brewer> getAllBrewers() {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetBrewerQuery());
 
-		resultCursor.moveToFirst();
+        final List<Brewer> brewers = new ArrayList<Brewer>();
 
-		while (!resultCursor.isAfterLast()) {
-			final Brewer brewer = CursorConverter.toBrewer(resultCursor);
-			brewers.add(brewer);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return brewers;
-	}
+        while (!resultCursor.isAfterLast()) {
+            final Brewer brewer = CursorConverter.toBrewer(resultCursor);
+            brewers.add(brewer);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-	@Override
-	public Brewer getBrewer(final int brewerId) {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetBrewerQuery(brewerId));
+        return brewers;
+    }
 
-		Brewer brewer = null;
+    @Override
+    public Brewer getBrewer(final int brewerId) {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetBrewerQuery(brewerId));
 
-		resultCursor.moveToFirst();
+        Brewer brewer = null;
 
-		if (!resultCursor.isAfterLast()) {
-			brewer = CursorConverter.toBrewer(resultCursor);
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return brewer;
-	}
+        if (!resultCursor.isAfterLast()) {
+            brewer = CursorConverter.toBrewer(resultCursor);
+        }
+        resultCursor.close();
 
-	@Override
-	public List<Festival> getAllFestivals() {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetFestivalQuery());
+        return brewer;
+    }
 
-		final List<Festival> festivals = new ArrayList<Festival>();
+    @Override
+    public List<Festival> getAllFestivals() {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetFestivalQuery());
 
-		resultCursor.moveToFirst();
+        final List<Festival> festivals = new ArrayList<Festival>();
 
-		while (!resultCursor.isAfterLast()) {
-			final Festival festival = CursorConverter.toFestival(resultCursor);
-			festivals.add(festival);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return festivals;
-	}
+        while (!resultCursor.isAfterLast()) {
+            final Festival festival = CursorConverter.toFestival(resultCursor);
+            festivals.add(festival);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-	@Override
-	public Festival getFestival(final int festivalId) {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetFestivalQuery(festivalId));
-		Festival festival = null;
+        return festivals;
+    }
 
-		resultCursor.moveToFirst();
+    @Override
+    public Festival getFestival(final int festivalId) {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetFestivalQuery(festivalId));
+        Festival festival = null;
 
-		if (!resultCursor.isAfterLast()) {
-			festival = CursorConverter.toFestival(resultCursor);
-		}
-		resultCursor.close();
+        resultCursor.moveToFirst();
 
-		return festival;
-	}
+        if (!resultCursor.isAfterLast()) {
+            festival = CursorConverter.toFestival(resultCursor);
+        }
+        resultCursor.close();
 
-	@Override
-	public List<FestivalBeer> getAllFestivalBeers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        return festival;
+    }
+
+    @Override
+    public List<FestivalBeer> getAllFestivalBeers() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public FestivalBeer getFestivalBeer(final int festivalBeerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public FestivalBeer getFestivalBeer(final int festivalBeerId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public UserBeer getUserBeer(final int beerId) {
+    @Override
+    public UserBeer getUserBeer(final int beerId) {
 
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final int userId = sharedPreferences.getInt("USER_ID", 0);
-		return getUserBeer(beerId, userId);
-	}
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        final int userId = sharedPreferences.getInt("USER_ID", 0);
+        return getUserBeer(beerId, userId);
+    }
 
-	@Override
-	public UserBeer getUserBeer(final int beerId, final int userId) {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetUserBeerQuery(beerId, userId));
+    @Override
+    public UserBeer getUserBeer(final int beerId, final int userId) {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetUserBeerQuery(beerId, userId));
 
-		UserBeer userBeer = null;
+        UserBeer userBeer = null;
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		if (!resultCursor.isAfterLast()) {
-			userBeer = CursorConverter.toUserBeer(resultCursor);
-		}
-		resultCursor.close();
+        if (!resultCursor.isAfterLast()) {
+            userBeer = CursorConverter.toUserBeer(resultCursor);
+        }
+        resultCursor.close();
 
-		return userBeer;
-	}
+        return userBeer;
+    }
 
-	@Override
-	public void setCustomServerCredentials(final CustomServerCredentials customServerCredentials) {
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+    @Override
+    public void setCustomServerCredentials(final CustomServerCredentials customServerCredentials) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-		sharedPreferences.edit().putString("SERVER_KEY", customServerCredentials.getServerKey()).putInt("USER_ID", customServerCredentials.getUserId())
-				.putBoolean("ACTIVATED", customServerCredentials.isActivated()).putString("EMAIL", customServerCredentials.getEmail())
-				.putString("USER_NAME", customServerCredentials.getUserName()).commit();
+        sharedPreferences.edit().putString("SERVER_KEY", customServerCredentials.getServerKey()).putInt("USER_ID", customServerCredentials.getUserId())
+                .putBoolean("ACTIVATED", customServerCredentials.isActivated()).putString("EMAIL", customServerCredentials.getEmail())
+                .putString("USER_NAME", customServerCredentials.getUserName()).commit();
 
-	}
+    }
 
-	@Override
-	public void resetCustomServerCredentials() {
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+    @Override
+    public void resetCustomServerCredentials() {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-		sharedPreferences.edit().putString("SERVER_KEY", "").putInt("USER_ID", -2).putBoolean("ACTIVATED", false).putString("EMAIL", "")
-				.putString("USER_NAME", "").commit();
+        sharedPreferences.edit().putString("SERVER_KEY", "").putInt("USER_ID", -2).putBoolean("ACTIVATED", false).putString("EMAIL", "")
+                .putString("USER_NAME", "").commit();
 
-	}
+    }
 
-	@Override
-	public CustomServerCredentials getCustomServerCredentials() {
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+    @Override
+    public CustomServerCredentials getCustomServerCredentials() {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-		final CustomServerCredentials customServerCredentials = new CustomServerCredentials();
-		customServerCredentials.setServerKey(sharedPreferences.getString("SERVER_KEY", ""));
-		customServerCredentials.setUserId(sharedPreferences.getInt("USER_ID", -2));
-		customServerCredentials.setActivated(sharedPreferences.getBoolean("ACTIVATED", false));
-		customServerCredentials.setEmail(sharedPreferences.getString("EMAIL", ""));
-		customServerCredentials.setUserName(sharedPreferences.getString("USER_NAME", ""));
+        final CustomServerCredentials customServerCredentials = new CustomServerCredentials();
+        customServerCredentials.setServerKey(sharedPreferences.getString("SERVER_KEY", ""));
+        customServerCredentials.setUserId(sharedPreferences.getInt("USER_ID", -2));
+        customServerCredentials.setActivated(sharedPreferences.getBoolean("ACTIVATED", false));
+        customServerCredentials.setEmail(sharedPreferences.getString("EMAIL", ""));
+        customServerCredentials.setUserName(sharedPreferences.getString("USER_NAME", ""));
 
-		return customServerCredentials;
-	}
+        return customServerCredentials;
+    }
 
-	@Override
-	public boolean storeUserRating(final int beerId, final int rating, final String note, final boolean wishlist, final boolean favorite) {
+    @Override
+    public boolean storeUserRating(final int beerId, final int rating, final String note, final boolean wishlist, final boolean favorite) {
 
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final int userId = sharedPreferences.getInt("USER_ID", -1);
-		if (userId == 0) {
-			return false;
-		}
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        final int userId = sharedPreferences.getInt("USER_ID", -1);
+        if (userId == 0) {
+            return false;
+        }
 
-		UserBeer userBeer = getUserBeer(beerId, userId);
-		if (userBeer == null) {
-			userBeer = new UserBeer();
-			userBeer.setUserId(userId);
-		}
+        UserBeer userBeer = getUserBeer(beerId, userId);
+        if (userBeer == null) {
+            userBeer = new UserBeer();
+            userBeer.setUserId(userId);
+        }
 
-		userBeer.setBeerId(beerId);
-		userBeer.setRating(rating);
-		userBeer.setNote(note);
-		userBeer.setWishlist(wishlist);
-		userBeer.setFavorite(favorite);
-		userBeer.setUpdatedServer(false);
+        userBeer.setBeerId(beerId);
+        userBeer.setRating(rating);
+        userBeer.setNote(note);
+        userBeer.setWishlist(wishlist);
+        userBeer.setFavorite(favorite);
+        userBeer.setUpdatedServer(false);
 
-		final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
-		final int updated = dataBaseHandler.insertOrUpdate(userBeer);
+        final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
+        final int updated = dataBaseHandler.insertOrUpdate(userBeer);
 
-		return updated > 0;
-		//
-		//
-		// succes &= storeShowcaseDataObjectList(showcaseDataObjectList);
-	}
+        return updated > 0;
+        //
+        //
+        // succes &= storeShowcaseDataObjectList(showcaseDataObjectList);
+    }
 
-	@Override
-	public List<UserBeer> getAllUserBeerRatingsForCurrentUser() {
+    @Override
+    public List<UserBeer> getAllUserBeerRatingsForCurrentUser() {
 
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final int userId = sharedPreferences.getInt("USER_ID", -1);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        final int userId = sharedPreferences.getInt("USER_ID", -1);
 
-		if (userId == 0) {
-			return new ArrayList<UserBeer>();
-		}
+        if (userId == 0) {
+            return new ArrayList<UserBeer>();
+        }
 
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllUserBeersQuery(userId));
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllUserBeersQuery(userId));
 
-		final List<UserBeer> userBeers = new ArrayList<UserBeer>();
+        final List<UserBeer> userBeers = new ArrayList<UserBeer>();
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		while (!resultCursor.isAfterLast()) {
-			final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
-			userBeers.add(userBeer);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        while (!resultCursor.isAfterLast()) {
+            final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
+            userBeers.add(userBeer);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-		return userBeers;
-	}
+        return userBeers;
+    }
 
-	@Override
-	public List<UserBeer> getAllUserBeersForBeer(final int beerId) {
+    @Override
+    public List<UserBeer> getAllUserBeersForBeer(final int beerId) {
 
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllUserBeersForBeerQuery(beerId));
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllUserBeersForBeerQuery(beerId));
 
-		final List<UserBeer> userBeers = new ArrayList<UserBeer>();
+        final List<UserBeer> userBeers = new ArrayList<UserBeer>();
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		while (!resultCursor.isAfterLast()) {
-			final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
-			userBeers.add(userBeer);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        while (!resultCursor.isAfterLast()) {
+            final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
+            userBeers.add(userBeer);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-		return userBeers;
-	}
+        return userBeers;
+    }
 
-	@Override
-	public List<Summary> getSummaryByBeerIdList(final List<Integer> beerIdList) {
-		if (beerIdList == null || beerIdList.size() <= 0) {
-			return new ArrayList<Summary>();
-		}
+    @Override
+    public List<Summary> getSummaryByBeerIdList(final List<Integer> beerIdList) {
+        if (beerIdList == null || beerIdList.size() <= 0) {
+            return new ArrayList<Summary>();
+        }
 
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetSummariesByBeerrIdListQuery(beerIdList));
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetSummariesByBeerrIdListQuery(beerIdList));
 
-		final List<Summary> summaries = new ArrayList<Summary>();
+        final List<Summary> summaries = new ArrayList<Summary>();
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		while (!resultCursor.isAfterLast()) {
-			final Summary summary = CursorConverter.toSummary(resultCursor);
-			summaries.add(summary);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        while (!resultCursor.isAfterLast()) {
+            final Summary summary = CursorConverter.toSummary(resultCursor);
+            summaries.add(summary);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-		return summaries;
-	}
+        return summaries;
+    }
 
-	@Override
-	public List<UserBeer> getNotServerUpdatedUserBeers() {
+    @Override
+    public List<UserBeer> getNotServerUpdatedUserBeers() {
 
-		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final int userId = sharedPreferences.getInt("USER_ID", -1);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        final int userId = sharedPreferences.getInt("USER_ID", -1);
 
-		if (userId == 0) {
-			return new ArrayList<UserBeer>();
-		}
+        if (userId == 0) {
+            return new ArrayList<UserBeer>();
+        }
 
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetNotServerUpdatedUserBeersQuery(userId));
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetNotServerUpdatedUserBeersQuery(userId));
 
-		final List<UserBeer> userBeers = new ArrayList<UserBeer>();
+        final List<UserBeer> userBeers = new ArrayList<UserBeer>();
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		while (!resultCursor.isAfterLast()) {
-			final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
-			userBeers.add(userBeer);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        while (!resultCursor.isAfterLast()) {
+            final UserBeer userBeer = CursorConverter.toUserBeer(resultCursor);
+            userBeers.add(userBeer);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-		return userBeers;
-	}
+        return userBeers;
+    }
 
-	@Override
-	public boolean setServerUpdatedUserBeers(final List<UserBeer> userBeerList) {
+    @Override
+    public boolean setServerUpdatedUserBeers(final List<UserBeer> userBeerList) {
 
-		for (final UserBeer userBeer : userBeerList) {
-			userBeer.setUpdatedServer(true);
-		}
+        for (final UserBeer userBeer : userBeerList) {
+            userBeer.setUpdatedServer(true);
+        }
 
-		final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
-		final int updated = dataBaseHandler.insertOrUpdate(userBeerList);
+        final DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
+        final int updated = dataBaseHandler.insertOrUpdate(userBeerList);
 
-		return updated > 0;
-	}
+        return updated > 0;
+    }
 
-	@Override
-	public List<Summary> getAllSummariesForSearchInput(final String searchInput) {
-		final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesForSearchInputQuery(searchInput));
+    @Override
+    public List<Summary> getAllSummariesForSearchInput(final String searchInput) {
+        final Cursor resultCursor = QueryHelper.doQuery(new DataBaseHandler(context), new GetAllSummariesForSearchInputQuery(searchInput));
 
-		final List<Summary> summaries = new ArrayList<Summary>();
+        final List<Summary> summaries = new ArrayList<Summary>();
 
-		resultCursor.moveToFirst();
+        resultCursor.moveToFirst();
 
-		while (!resultCursor.isAfterLast()) {
-			final Summary summary = CursorConverter.toSummary(resultCursor);
-			summaries.add(summary);
-			resultCursor.moveToNext();
-		}
-		resultCursor.close();
+        while (!resultCursor.isAfterLast()) {
+            final Summary summary = CursorConverter.toSummary(resultCursor);
+            summaries.add(summary);
+            resultCursor.moveToNext();
+        }
+        resultCursor.close();
 
-		return summaries;
-	}
+        return summaries;
+    }
 }

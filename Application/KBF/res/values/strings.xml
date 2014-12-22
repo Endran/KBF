@@ -61,7 +61,7 @@
     <string name="login_username">Username</string>
     <string name="login_forgotPassword">Forgot password</string>
     <string name="login_email">Email</string>
-    <string name="login_privacy">You can find the activation code on page 5 of the festival booklet.\n\nYour email address is used to uniquely identify you. It will not be shared with third parties.</string>
+    <string name="login_privacy">You can find the activation code on page 6 of the festival booklet.\n\nYour email address is used to uniquely identify you. It will not be shared with third parties.</string>
     <string name="login_toast_noUserName">No username entered</string>
     <string name="login_toast_toShortUserName">Your username is too short</string>
     <string name="login_toast_noActivation">No activation code entered</string>

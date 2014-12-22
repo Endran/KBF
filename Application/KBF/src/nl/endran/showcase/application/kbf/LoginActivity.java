@@ -18,114 +18,118 @@ import android.util.Patterns;
 
 public class LoginActivity extends BaseShowcaseActivity {
 
-	private LoginActivityView loginActivityView;
+    private LoginActivityView loginActivityView;
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		loginActivityView = new LoginActivityView(this, new LoginActivityViewListener() {
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loginActivityView = new LoginActivityView(this, new LoginActivityViewListener() {
 
-			@Override
-			public void onOkClicked() {
-				tryLogin(loginActivityView.getActivationCode(), loginActivityView.getUserName(), loginActivityView.getEmail());
-			}
+            @Override
+            public void onOkClicked() {
+                tryLogin(loginActivityView.getActivationCode(), loginActivityView.getUserName(), loginActivityView.getEmail());
+            }
 
-			@Override
-			public void onLogoutClicked() {
-				logout();
-			}
-		});
+            @Override
+            public void onLogoutClicked() {
+                logout();
+            }
+        });
 
-		final Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-		final Account[] accounts = AccountManager.get(this).getAccounts();
+        final Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+        final Account[] accounts = AccountManager.get(this).getAccounts();
 
-		final List<String> emailList = new ArrayList<String>();
+        final List<String> emailList = new ArrayList<String>();
 
-		for (final Account account : accounts) {
-			if (emailPattern.matcher(account.name).matches()) {
-				emailList.add(account.name);
-			}
-		}
+        for (final Account account : accounts) {
+            if (emailPattern.matcher(account.name).matches()) {
+                if (account.name.contains("gmail")) {
+                    emailList.add(0, account.name);
+                } else {
+                    emailList.add(account.name);
+                }
+            }
+        }
 
-		loginActivityView.setEmailList(emailList);
+        loginActivityView.setEmailList(emailList);
 
-	}
+    }
 
-	protected void tryLogin(final String activationCode, final String userName, final String email) {
-		if (userName == null || userName.length() <= 0) {
-			loginActivityView.showError(R.string.login_toast_noUserName);
-		} else if (userName.length() <= 4) {
-			loginActivityView.showError(R.string.login_toast_toShortUserName);
-		} else if (activationCode == null || !getString(R.string.activationCode).toLowerCase().equals(activationCode.toLowerCase())) {
-			loginActivityView.showError(R.string.login_toast_invalidActivation);
-		} else {
-			ApplicationState.activated = true;
-			loginActivityView.showMessage(R.string.login_toast_activated);
-			showcaseLibrary.getBackendAccess().tryLogin(true, userName, email, new TryLoginCommandListener() {
+    protected void tryLogin(final String activationCode, final String userName, final String email) {
+        if (userName == null || userName.length() <= 0) {
+            loginActivityView.showError(R.string.login_toast_noUserName);
+        } else if (userName.length() <= 4) {
+            loginActivityView.showError(R.string.login_toast_toShortUserName);
+        } else if (activationCode == null || !getString(R.string.activationCode).toLowerCase().equals(activationCode.toLowerCase())) {
+            loginActivityView.showError(R.string.login_toast_invalidActivation);
+        } else {
+            ApplicationState.activated = true;
+            loginActivityView.showMessage(R.string.login_toast_activated);
+            showcaseLibrary.getBackendAccess().tryLogin(true, userName, email, new TryLoginCommandListener() {
 
-				@Override
-				public void onFail(final String message) {
-					loginActivityView.showError(message);
-				}
+                @Override
+                public void onFail(final String message) {
+                    loginActivityView.showError(message);
+                }
 
-				@Override
-				public void onCustomServerCredentials(final CustomServerCredentials customServerCredentials) {
-					if (customServerCredentials.getUserId() > 0) {
-						ApplicationState.userId = customServerCredentials.getUserId();
-						loginActivityView.showMessage(R.string.login_toast_loggedin);
-					}
-				}
-			});
+                @Override
+                public void onCustomServerCredentials(final CustomServerCredentials customServerCredentials) {
+                    if (customServerCredentials.getUserId() > 0) {
+                        ApplicationState.userId = customServerCredentials.getUserId();
+                        loginActivityView.showMessage(R.string.login_toast_loggedin);
+                    }
+                }
+            });
 
-			LoginActivity.this.finish();
-		}
-	}
+            LoginActivity.this.finish();
+        }
+    }
 
-	private void logout() {
-		showcaseLibrary.getDataAccess().Logout(new LogoutListener() {
+    private void logout() {
+        showcaseLibrary.getDataAccess().Logout(new LogoutListener() {
 
-			@Override
-			public void onFail(final String message) {
-				loginActivityView.showError(message);
-			}
+            @Override
+            public void onFail(final String message) {
+                loginActivityView.showError(message);
+            }
 
-			@Override
-			public void onLoggedOut() {
-				ApplicationState.activated = false;
-				ApplicationState.userId = -1;
-			}
-		});
-		finish();
-	}
+            @Override
+            public void onLoggedOut() {
+                ApplicationState.activated = false;
+                ApplicationState.userId = -1;
+            }
+        });
+        finish();
+    }
 
-	@Override
-	protected void initializeLogger() {
-	}
+    @Override
+    protected void initializeLogger() {
+    }
 
-	private void getUserCredentials() {
+    private void getUserCredentials() {
 
-		showcaseLibrary.getDataAccess().getUserCredentials(new UserCredentialsListener() {
+        showcaseLibrary.getDataAccess().getUserCredentials(new UserCredentialsListener() {
 
-			@Override
-			public void onFail(final String message) {
-				loginActivityView.showError(message);
-			}
+            @Override
+            public void onFail(final String message) {
+                loginActivityView.showError(message);
+            }
 
-			@Override
-			public void onCredentials(final CustomServerCredentials customServerCredentials) {
-				if (customServerCredentials.getUserId() > 0) {
-					loginActivityView.loggedIn(customServerCredentials.getUserName());
-				}
-			}
-		});
-	}
+            @Override
+            public void onCredentials(final CustomServerCredentials customServerCredentials) {
+                if (customServerCredentials.getUserId() > 0) {
+                    loginActivityView.loggedIn(customServerCredentials.getUserName());
+                }
+            }
+        });
+    }
 
-	@Override
-	void onShowcaseServiceConnected(final ShowcaseLibrary showcaseLibrary) {
-		getUserCredentials();
-	}
+    @Override
+    void onShowcaseServiceConnected(final ShowcaseLibrary showcaseLibrary) {
+        getUserCredentials();
+    }
 
-	@Override
-	void onShowcaseServiceDisconnected() {
-	}
+    @Override
+    void onShowcaseServiceDisconnected() {
+    }
 }

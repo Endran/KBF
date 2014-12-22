@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Kerst Bier Festival 2013</string>
-    <string name="activationCode">kbf2013win</string>
+    <string name="app_name">Kerst Bier Festival 2014</string>
+    <string name="activationCode">kbf20jaar</string>
     <string name="placeHolder"></string>
     <string name="errorWhileRetrievingResults">Er is een probleem opgetreden tijdens het ophalen van resultaten</string>
     <string name="action_settings">Instellingen</string>
@@ -21,8 +21,8 @@
     
     <!-- About screen -->
     <string name="product_name">Showcase</string>
-    <string name="about_versionCode">Versie 2.0.2 </string>
-    <string name="about_copyrights">\u00A9 David Hardy 2013</string>
+    <string name="about_versionCode">Versie 2.0.3 </string>
+    <string name="about_copyrights">\u00A9 David Hardy 2014</string>
     <string name="about_contact">Contact</string>
     <string name="about_contactAddress">EndranAppDevelopment@gmail.com</string>
     <string name="about_text">Deze applicatie is bedoeld als een leuke toevoeging op dit bier festival, ik hoop dat u er plezierig en tevreden gebruikt van maakt. Hebt u tips, of suggesties voor verbeteringen? Stuur dan een mail naar bovenstaand email adres. \n\nOok interesse in een applicatie voor uw festival? Neem dan ook contact op via bovenstaand email adres. \n\nOntwikkeld door David Hardy in samenwerking met Taco Vader</string>
@@ -60,7 +60,7 @@
     <string name="login_username">Gebruikersnaam</string>
     <string name="login_forgotPassword">Wachtwoord vergeten</string>
     <string name="login_email">Email</string>
-    <string name="login_privacy">Je kan de activatie code vinden op pagina 5 van het festival boekje.\n\nJe email adres wordt enkel gebruikt om jou uniek te kunnen indentificeren. Het zal niet gedeeld worden met derden.</string>
+    <string name="login_privacy">Je kan de activatie code vinden op pagina 7 van het festival boekje.\n\nJe email adres wordt enkel gebruikt om jou uniek te kunnen indentificeren. Het zal niet gedeeld worden met derden.</string>
     <string name="login_toast_noUserName">Geen gebruikersnaam ingevult</string>
     <string name="login_toast_toShortUserName">Je gebruikersnaam is te kort</string>
     <string name="login_toast_noActivation">Je hebt geen activatiecode ingevult</string>

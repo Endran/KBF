@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Christmas Beer Festival 2013</string>
-    <string name="activationCode">kbf2013win</string>
+    <string name="app_name">Christmas Beer Festival 2014</string>
+    <string name="activationCode">kbf20jaar</string>
     <string name="placeHolder"></string>
     <string name="errorWhileRetrievingResults">An error occurred while retrieving results</string>
     <string name="action_settings">Settings</string>
@@ -21,8 +21,8 @@
     
     <!-- About screen -->
     <string name="product_name">Showcase</string>
-    <string name="about_versionCode">Version 2.0.2 </string>
-    <string name="about_copyrights">\u00A9 David Hardy 2013</string>
+    <string name="about_versionCode">Version 2.0.3 </string>
+    <string name="about_copyrights">\u00A9 David Hardy 2014</string>
     <string name="about_contact">Contact</string>
     <string name="about_contactAddress">EndranAppDevelopment@gmail.com</string>
     <string name="about_text">This application is intended to be a fun addition to this festival, I hope you enjoy this application. Do you have any kind of feedback? Don\'t hesitate and send an email the the address above.\n\nIf you would like to have an app for your festival, please contact me via to the email address above.\n\nDeveloped by David Hardy in collaboration with Taco Vader.</string>
@@ -61,7 +61,7 @@
     <string name="login_username">Username</string>
     <string name="login_forgotPassword">Forgot password</string>
     <string name="login_email">Email</string>
-    <string name="login_privacy">You can find the activation code on page 5 of the festival booklet.\n\nYour email address is used to uniquely identify you. It will not be shared with third parties.</string>
+    <string name="login_privacy">You can find the activation code on page 6 of the festival booklet.\n\nYour email address is used to uniquely identify you. It will not be shared with third parties.</string>
     <string name="login_toast_noUserName">No username entered</string>
     <string name="login_toast_toShortUserName">Your username is too short</string>
     <string name="login_toast_noActivation">No activation code entered</string>
