@@ -3,22 +3,25 @@ package nl.endran.showcase.database.sqllite.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.endran.activity.EndranTracking;
 import nl.endran.logging.ILogger;
 import nl.endran.logging.LoggerFactory;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils.InsertHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
     protected final ILogger log = LoggerFactory.GetLogger(this);
     protected final Context context;
 
     private static final String DATABASE_NAME = "ShowcaseSqlLite";
-    public static final int DATABASE_VERSION = 14;
+    public static final int DATABASE_VERSION = 15;
 
     public static final String DATABASE_CONTENT_KEY = "DATABASE_CONTENT_ID";
 
@@ -32,6 +35,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public DataBaseHandler(final Context context) {
         super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+
+        if (!sharedPreferences.getBoolean("DATABASE_HACK_YOU_WILL_REGRET", false)) {
+            sharedPreferences.edit().clear().commit();
+            sharedPreferences.edit().putBoolean(EndranTracking.ALLOW_STAT_KEY, true).commit();
+            sharedPreferences.edit().putBoolean("DATABASE_HACK_YOU_WILL_REGRET", true).commit();
+        }
     }
 
     @Override
@@ -50,7 +61,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         create(db);
         log.verbose("Database created succesfully");
-
     }
 
     @Override
